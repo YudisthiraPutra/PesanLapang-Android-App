@@ -79,7 +79,9 @@ fun ProfileScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            ProfileItem(title = "My Bookings")
+            ProfileItem(title = "My Bookings", onClick = {
+                navController.navigate("my_booking_screen")
+            })
             ProfileItem(title = "Payment Methods")
             ProfileItem(title = "Help & Support")
             ProfileItem(title = "Settings")
@@ -96,11 +98,14 @@ fun ProfileScreen(
     }
 }
 @Composable
-fun ProfileItem(title: String) {
+fun ProfileItem(
+    title: String,
+    onClick: () -> Unit = {}
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { /* TODO: Handle item click */ }
+            .clickable { onClick() }
             .padding(vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -115,4 +120,5 @@ fun ProfileItem(title: String) {
         )
     }
 }
+
 

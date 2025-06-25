@@ -20,8 +20,6 @@ import com.example.pesanlapang_android_app.core.route.AppRouteName
 import com.example.pesanlapang_android_app.core.theme.Blue
 import com.example.pesanlapang_android_app.core.theme.Glass
 import com.example.pesanlapang_android_app.core.theme.Gray
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.graphics.Color
 import com.example.pesanlapang_android_app.module.home.model.SportModel
 
 @Composable
@@ -36,17 +34,17 @@ fun DetailScreen(
         floatingActionButton = {
             Button(
                 modifier = Modifier
-                    .fillMaxWidth(0.8f)
-                    .height(50.dp),
+                    .wrapContentWidth()
+                    .height(56.dp),
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = Blue
+                    backgroundColor = Glass
                 ),
-                shape = RoundedCornerShape(24.dp),
+                shape = RoundedCornerShape(32.dp),
                 onClick = {
                     navController.navigate(AppRouteName.CourtSelector)
                 },
             ) {
-                Text(text = "Book Now", color = Color.White)
+                Text(text = "Book Now", color = Blue)
             }
         }
     ) { padding ->
@@ -57,71 +55,101 @@ fun DetailScreen(
                 .verticalScroll(scrollState)
         ) {
             Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
+                modifier = Modifier.padding(
+                    horizontal = 16.dp, vertical = 8.dp
+                ),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                IconButton(onClick = { navController.popBackStack() }) {
-                    Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+                IconButton(onClick = {
+                    navController.popBackStack()
+                }) {
+                    Icon(Icons.Default.ArrowBack, contentDescription = "Back Button")
                 }
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "Venue Detail",
-                    style = MaterialTheme.typography.h6
-                )
+                Spacer(modifier = Modifier.width(16.dp))
+                Text(text = "Venue Detail", style = MaterialTheme.typography.h6)
             }
-
-            Image(
-                painter = painterResource(id = sport.assetImage),
-                contentDescription = "Sport Image",
-                contentScale = ContentScale.Crop,
+            Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(240.dp)
-                    .padding(horizontal = 16.dp)
-                    .clip(RoundedCornerShape(16.dp))
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-                Text(
-                    text = sport.title,
-                    style = MaterialTheme.typography.h6,
-                    fontWeight = FontWeight.Bold
+                    .height(320.dp)
+                    .padding(horizontal = 24.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = sport.assetImage),
+                    contentDescription = "Sport Image",
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier
+                        .weight(0.7f)
+                        .height(320.dp)
+                        .clip(RoundedCornerShape(16.dp))
                 )
-                Spacer(modifier = Modifier.height(8.dp))
-
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
+                Spacer(modifier = Modifier.width(24.dp))
+                Column(
+                    modifier = Modifier
+                        .height(320.dp)
+                        .weight(0.3f),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    SportInfo(R.drawable.sport, "Type", sport.type)
-                    SportInfo(R.drawable.price, "Price", sport.price)
-                    SportInfo(R.drawable.rating, "Rating", sport.rating)
+                    SportInfo(
+                        painterResourceId = R.drawable.sport,
+                        title = "Sport",
+                        value = sport.type
+                    )
+                    SportInfo(
+                        painterResourceId = R.drawable.price,
+                        title = "Price",
+                        value = sport.price
+                    )
+                    SportInfo(
+                        painterResourceId = R.drawable.rating,
+                        title = "Rating",
+                        value = sport.rating
+                    )
                 }
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                Text("Description", style = MaterialTheme.typography.subtitle2)
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(sport.description, style = MaterialTheme.typography.body2)
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Text("Location", style = MaterialTheme.typography.subtitle2)
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(sport.location, style = MaterialTheme.typography.body2)
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Text("Open Hours", style = MaterialTheme.typography.subtitle2)
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(sport.openHours, style = MaterialTheme.typography.body2)
-
-                Spacer(modifier = Modifier.height(80.dp))
             }
+            Text(
+                sport.title, style = MaterialTheme.typography.h6,
+                modifier = Modifier.padding(
+                    horizontal = 24.dp, vertical = 16.dp
+                )
+            )
+            Text(
+                "Description", style = MaterialTheme.typography.subtitle2,
+                modifier = Modifier.padding(
+                    horizontal = 24.dp
+                )
+            )
+            Text(
+                sport.description, style = MaterialTheme.typography.body2,
+                modifier = Modifier.padding(
+                    horizontal = 24.dp, vertical = 16.dp
+                )
+            )
+            Text(
+                "Location", style = MaterialTheme.typography.subtitle2,
+                modifier = Modifier.padding(
+                    horizontal = 24.dp
+                )
+            )
+            Text(
+                sport.location, style = MaterialTheme.typography.body2,
+                modifier = Modifier.padding(
+                    horizontal = 24.dp, vertical = 16.dp
+                )
+            )
+            Text(
+                "Open Hours", style = MaterialTheme.typography.subtitle2,
+                modifier = Modifier.padding(
+                    horizontal = 24.dp
+                )
+            )
+            Text(
+                sport.openHours, style = MaterialTheme.typography.body2,
+                modifier = Modifier.padding(
+                    horizontal = 24.dp, vertical = 16.dp
+                )
+            )
+            Spacer(modifier = Modifier.height(64.dp))
         }
     }
 }
@@ -134,25 +162,22 @@ fun SportInfo(
 ) {
     Column(
         modifier = Modifier
-            .padding(4.dp)
-            .border(1.dp, Gray, RoundedCornerShape(12.dp))
-            .padding(8.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .border(width = 1.dp, color = Gray, shape = RoundedCornerShape(16.dp))
+            .clip(RoundedCornerShape(16.dp))
+            .clickable { }
+            .padding(12.dp)
+            .fillMaxWidth()
+            .wrapContentHeight(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
     ) {
         Icon(
             painter = painterResource(id = painterResourceId),
             contentDescription = title,
-            modifier = Modifier.size(24.dp),
-            tint = Color.Unspecified // biar icon asli warnanya sesuai asset
         )
         Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = title,
-            style = MaterialTheme.typography.caption
-        )
-        Text(
-            text = value,
-            style = MaterialTheme.typography.body2.copy(fontWeight = FontWeight.Bold)
-        )
+        Text(text = title, style = MaterialTheme.typography.body2)
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(text = value, style = MaterialTheme.typography.subtitle1)
     }
 }

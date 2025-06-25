@@ -12,17 +12,20 @@ import com.example.pesanlapang_android_app.module.detail.presentation.DetailScre
 import com.example.pesanlapang_android_app.module.home.model.popularNearYouSport
 import com.example.pesanlapang_android_app.module.home.presentation.BottomNavBar
 import com.example.pesanlapang_android_app.module.home.presentation.HomeScreen
+import com.example.pesanlapang_android_app.module.login.presentation.LoginScreen
+import com.example.pesanlapang_android_app.module.signup.presentation.SignUpScreen
 import com.example.pesanlapang_android_app.module.profile.presentation.ProfileScreen
+import com.example.pesanlapang_android_app.module.profile.presentation.MyBookingScreen
 import com.example.pesanlapang_android_app.module.seat_selector.presentation.CourtSelectorScreen
+import com.example.pesanlapang_android_app.module.profile.presentation.Booking
 
 import com.example.pesanlapang_android_app.module.orderdetail.presentation.OrderDetailScreen
 object AppRoute {
-
     @Composable
     fun GenerateRoute(navController: NavHostController) {
         NavHost(
             navController = navController,
-            startDestination = AppRouteName.Home,
+            startDestination = "login",
         ) {
             composable(AppRouteName.Home) {
                 HomeScreen(navController = navController)
@@ -46,6 +49,17 @@ object AppRoute {
                 val time = backStackEntry.arguments?.getString("time") ?: ""
 
                 OrderDetailScreen(navController = navController, courts = courts, date = date, time = time)
+            }
+            composable("login") { LoginScreen(navController) }
+            composable("signup") { SignUpScreen(navController) }
+            composable("home") { HomeScreen(navController) }
+            composable(AppRouteName.MyBookings) {
+                // Contoh data dummy
+                val bookings = listOf(
+                    Booking("1", "Court A1", "2025-07-01", "10:00", 150),
+                    Booking("2", "Court B2", "2025-07-05", "14:00", 150)
+                )
+                MyBookingScreen(navController = navController, bookings = bookings)
             }
         }
     }

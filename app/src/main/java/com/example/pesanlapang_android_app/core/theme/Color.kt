@@ -9,3 +9,7 @@ val White = Color(0xFFFFFFFF)
 val Gray = Color(0xFF888888)
 val LightGray = Color(0xFFF5F5F5)
 val Teal200 = Color(0xFF03DAC5)
+
+val CreamBackground = Color(0xFFFFF8E1)   // Contoh warna cream soft
+val BlackText1 = Color(0xFF212121)        // Contoh warna hitam gelap
+val TextGray = Color(0xFF757575)          // Contoh warna abu-abu untuk teks
